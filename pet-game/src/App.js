@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import MainPage from './components/MainPetPage';
 import './App.css';
 import feline from './assets/images/cat.jpeg';
 import dino from './assets/images/dinosaur.jpeg';
@@ -21,7 +22,7 @@ class App extends Component {
     return (
       <div>
         <h1> Pet Game</h1>
-        <img src={feline} />
+        <MainPage />
       </div>
     );
   }
