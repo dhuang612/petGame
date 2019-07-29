@@ -4,7 +4,9 @@ class MainPetPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      petTier: []
+      firstTier: ['cat', 'dog', 'fish', 'lizard'],
+      secondTier: ['rabbit', 'turtle', 'fox'],
+      thirdTier: ['racoon', 'dino', 'elephant']
     };
   }
   componentDidUpdate = () => {};
@@ -14,45 +16,53 @@ class MainPetPage extends Component {
     //you can reroll for a pet twice
     const rollResult = [];
 
-    while (rollResult.length === 0) {
-      const randomNum = Math.floor(Math.random() * 4) - 0.65;
-      if (randomNum < 0 || randomNum < 1) {
-        rollResult.push(1);
-      } else if (randomNum > 1 && randomNum < 2) {
-        rollResult.push(2);
-      } else {
-        rollResult.push(3);
-      }
-      return rollResult;
+    const randomNum = Math.floor(Math.random() * 4) - 0.65;
+    if (randomNum < 0 || randomNum < 1) {
+      rollResult.push(1);
+    } else if (randomNum > 1 && randomNum < 2) {
+      rollResult.push(2);
+    } else {
+      rollResult.push(3);
     }
 
-    this.setState({ petTier: rollResult }, () =>
-      console.log(this.state.petTier)
-    );
+    return rollResult;
   };
 
-  getPet = petTier => {
-    if (petTier === 1) {
-      let firstTier = ['cat', 'dog', 'fish', 'lizard'];
-      return 1;
+  randomPetSelection = tiers => {
+    let selectedPet = [];
+    let random = Math.random();
+    let pets = [];
+    const rolledNum = this.rollPetRarity();
+    console.log(rolledNum);
+    if (rolledNum == 1) {
+      pets = [...this.state.firstTier];
+      let totalPets = pets.length;
+      let randomIndex = Math.floor(random * totalPets);
+      let randomPet = pets[randomIndex];
+      return randomPet;
     }
-    if (petTier === 2) {
-      let secondTier = ['rabbit', 'turtle', 'fox'];
-      return 2;
+    if (rolledNum == 2) {
+      pets = [...this.state.secondTier];
+      let totalPets = pets.length;
+      let randomIndex = Math.floor(random * totalPets);
+      let randomPet = pets[randomIndex];
+      return randomPet;
+    } else if (rolledNum == 3) {
+      pets = [...this.state.thirdTier];
+      let totalPets = pets.length;
+      let randomIndex = Math.floor(random * totalPets);
+      let randomPet = pets[randomIndex];
+      return randomPet;
     }
-    if (petTier === 3) {
-      let thirdTier = ['racoon', 'dino', 'elephant'];
-      return 3;
-    }
+    console.log();
   };
 
   render() {
-    const { petTier } = this.state;
     return (
       <div>
         <h1> Main page</h1>
-        {console.log(petTier)}
-        {this.rollPetRarity()}
+
+        {this.randomPetSelection()}
       </div>
     );
   }
@@ -64,19 +74,5 @@ well, in general, you can't reliably check the
 state except in render or if you use the function callback version
 
 
-trying to call this.setState is causing the following error:
-this.setState({
-      petTier: results.roll
-    });
 
-    Maximum update depth exceeded. This can happen when a
-     component repeatedly calls setState inside 
-    componentWillUpdate or componentDidUpdate. 
-    React limits the number of nested updates to prevent infinite loops.
-
-
-
-      const results = rollResult.map(item => ({
-      results: item
-    }));
 */
