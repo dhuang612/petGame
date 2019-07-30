@@ -1,17 +1,5 @@
 import React, { Component } from 'react';
 
-import cat from '../assets/images/cat.jpeg';
-import dino from '../assets/images/dinosaur.jpeg';
-import dog from '../assets/images/dog.jpeg';
-import elephant from '../assets/images/elephant.jpeg';
-import fish from '../assets/images/fish.jpeg';
-import fox from '../assets/images/fox.jpeg';
-import lizard from '../assets/images/lizard.jpeg';
-import rabbit from '../assets/images/rabbit.jpeg';
-import racoon from '../assets/images/racoon.jpeg';
-import turtle from '../assets/images/turtle.jpeg';
-import animalData from '../components/animalData';
-
 class MainPetPage extends Component {
   constructor(props) {
     super(props);
@@ -39,11 +27,16 @@ class MainPetPage extends Component {
 
     return rollResult;
   };
-
+  displayImages = () => {
+    const images = require.context('../../public/images', true, /\.(|jpe?g|)$/);
+    const dino = images('./dinosaur.jpeg');
+    return dino;
+  };
   randomPetSelection = tiers => {
     let random = Math.random();
     let pets = [];
     const rolledNum = this.rollPetRarity();
+
     console.log(rolledNum);
     if (rolledNum === 1) {
       pets = [...this.state.firstTier];
@@ -72,7 +65,7 @@ class MainPetPage extends Component {
       <div>
         <h1> Main page</h1>
         {this.randomPetSelection()}
-        <img src={this.randomPetSelection} />
+        <img src={this.displayImages()} />
       </div>
     );
   }
