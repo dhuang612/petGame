@@ -1,2 +1,10 @@
 currently trying to get the images that are loaded in with import:
 https://stackoverflow.com/questions/41947474/dynamically-loading-local-images-with-reactjs
+
+Here’s a future tip, after you are done coding go back and see 
+if redundant code can be replaced. Weigh that against flexibility.
+ In the data object the animal name and its image name are the same.  
+ The state array can also be filled in with the data.  Nothing to 
+ impact play now or coding for next year or two. 
+Goal is to make it so change data and everything else updates.
+

@@ -13,7 +13,7 @@ class MainPetPage extends Component {
 
   //accounting for rarity 3 is the hardest to get and 1 is the easiest.
   rollPetRarity = () => {
-    //you can reroll for a pet twice
+    //you can reroll for a pet twice //not setup yet
     let rollResult = '';
 
     const randomNum = Math.floor(Math.random() * 4) - 0.65;
@@ -24,19 +24,33 @@ class MainPetPage extends Component {
     } else {
       return (rollResult = 3);
     }
-
-    return rollResult;
   };
+  //need to get this setup so that it's dynamically set.
   displayImages = () => {
+    let animalNames = [];
+    let animalPics = [];
+    let sortedNames = animalNames.concat(
+      this.state.firstTier,
+      this.state.secondTier,
+      this.state.thirdTier
+    );
+    console.log(sortedNames);
+
     const images = require.context('../../public/images', true, /\.(|jpe?g|)$/);
-    const dino = images('./dinosaur.jpeg');
-    return dino;
+    // return images(`./`);
+    /*
+      confirmed that you can load an image need to figure out how to do it dynamically
+    //const dino = images('./dinosaur.jpeg');
+    //return dino;
+    */
+    return sortedNames;
   };
   randomPetSelection = tiers => {
     let random = Math.random();
     let pets = [];
     const rolledNum = this.rollPetRarity();
-
+    const animalPics = this.displayImages();
+    console.log(animalPics);
     console.log(rolledNum);
     if (rolledNum === 1) {
       pets = [...this.state.firstTier];
@@ -65,7 +79,6 @@ class MainPetPage extends Component {
       <div>
         <h1> Main page</h1>
         {this.randomPetSelection()}
-        <img src={this.displayImages()} />
       </div>
     );
   }
